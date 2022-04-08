@@ -1,0 +1,50 @@
+class Solution
+{
+public:
+    vector<vector<int>> threeSum(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<vector<int>> res;
+
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n; i++)
+        {
+
+            // to skip duplicates in the sorted array
+            if (i > 0 && nums[i] == nums[i - 1])
+            {
+                continue;
+            }
+
+            int lo = i + 1, hi = n - 1, sum;
+
+            while (lo < hi)
+            {
+                sum = nums[i] + nums[lo] + nums[hi];
+                // sum = a + b + c
+
+                if (sum > 0)
+                {
+                    hi--;
+                }
+                else if (sum < 0)
+                {
+                    lo++;
+                }
+                else
+                {
+                    res.push_back(vector<int>{nums[i], nums[lo], nums[hi]});
+
+                    // to skip duplicates present in between the start and end pointers
+                    lo++;
+                    while (nums[lo] == nums[lo - 1] && lo < hi)
+                    {
+                        lo++;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+};
